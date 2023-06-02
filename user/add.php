@@ -1,6 +1,13 @@
 <?php  
+    session_start();
+
+    //return to login if not logged in
+    if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
+        header('location:index.php');
+    }
+
     // Include database file
-    include 'users.php';  $editorObj = new Users();  // Insert Record in editor table
+    require 'User.php';  $editorObj = new User();  // Insert Record in editor table
     if(isset($_POST['submit'])) {
         $editorObj->store($_POST);
     }
@@ -16,8 +23,33 @@
     </head>
     <body>
         <div class="card text-center" style="padding:15px;">
-        <h4>Add New Editor</h4>
-        </div><br> 
+            <div class="row">
+                <div class="col-lg-3">
+                    <h4>Add New Editor</h4>
+                </div>
+                <div class="col-lg-9">
+                    <?php 
+                        require '../header.php'; 
+                        if($user['role'] != 'Admin'){
+                            $_SESSION['message'] = 'The action is not permitted';
+                            header('location:../home.php');
+                            die();
+                        }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <br> 
+        <?php
+            if(isset($_SESSION['message'])){
+                ?>
+                    <div class="alert alert-danger text-center">
+                        <?php echo $_SESSION['message']; ?>
+                    </div>
+                <?php     
+                unset($_SESSION['message']);
+            }
+        ?>
         <div class="container">
             <form action="add.php" method="POST">
                 <div class="row">
@@ -35,7 +67,7 @@
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="role">Role</label>
-                        <input type="text" class="form-control" name="role" value="Editor" required="" readonly>
+                        <input type="text" class="form-control" value="Editor" readonly>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="status">Status</label>

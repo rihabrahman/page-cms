@@ -1,32 +1,25 @@
 <?php
-    class Users
+    require_once('../Auth.php');
+
+    class User extends Auth
     {
-        private $serverName = "localhost";
-        private $userName   = "root";
-        private $password   = "";
-        private $database   = "page_cms";
-        public  $connection;
-
-        // Establish Database Connection 
-        public function __construct()
-        {
-            $this->connection = new mysqli($this->serverName, $this->userName,$this->password,$this->database);
-            if(mysqli_connect_error()) {
-                trigger_error("Failed to connect to MySQL: " . mysqli_connect_error());
-            }
-            else{
-                return $this->connection;
-            }
-        }	
-
         // Insert data into user table
         public function store($post)
-        {
+        {           
             $name = $this->connection->real_escape_string($_POST['name']);
             $email = $this->connection->real_escape_string($_POST['email']);
             $password = $this->connection->real_escape_string(md5($_POST['password']));
-            $role = $this->connection->real_escape_string($_POST['role']);
+            $role = 'Editor';
             $status = $this->connection->real_escape_string($_POST['status']);
+
+            $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email'";
+            $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
+            if ($duplicateEmailCheckResult->num_rows > 0) {
+                $_SESSION['message'] = 'The email has already been taken.';
+                header('location:add.php');
+                die();
+            }            
+
             $query="INSERT INTO users(name, email, password, role, status) VALUES('$name', '$email', '$password', '$role', '$status')";
             $sql = $this->connection->query($query);
             if ($sql==true) {
@@ -72,14 +65,22 @@
         {
             $name = $this->connection->real_escape_string($_POST['name']);
             $email = $this->connection->real_escape_string($_POST['email']);
-            $password = $this->connection->real_escape_string(md5($_POST['password']));
-            $role = $this->connection->real_escape_string($_POST['role']);
+            $role = 'Editor';
             $status = $this->connection->real_escape_string($_POST['status']);
             $id = $this->connection->real_escape_string($_POST['id']);
+
+            $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email' and id!=$id";
+            $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
+
+            if ($duplicateEmailCheckResult->num_rows > 0) {
+                $_SESSION['message'] = 'The email has already been taken.';
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                die();
+            } 
+
             if (!empty($id) && !empty($postData)) {
-                $query = "UPDATE users SET name = '$name', email = '$email', password = '$password' , role = '$role', status = '$status' WHERE id = '$id'";
+                $query = "UPDATE users SET name = '$name', email = '$email', role = '$role', status = '$status' WHERE id = '$id'";
                 $sql = $this->connection->query($query);
-                echo $sql;
                 if ($sql==true) {
                     header("Location:index.php?msg2=update");
                 }else{
