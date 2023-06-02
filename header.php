@@ -24,7 +24,7 @@
             }
         ?>
         <div class="col-lg-2 text-right">
-            <a href="/page-cms/user/add.php" class="btn btn-primary">View All Pages</a>
+            <a href="/page-cms/page/index.php" class="btn btn-primary">View All Pages</a>
         </div>
         <div class="col-lg-2">
             <a href="/page-cms/logout.php" class="btn btn-danger"><span class="glyphicon glyphicon-log-out"></span> Logout</a>

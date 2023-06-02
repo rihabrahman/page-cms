@@ -6,34 +6,34 @@
         header('location:index.php');
     }
 
-    // Edit editor record
-    require 'User.php';  $editorObj = new User();  
+    // Edit page record
+    require 'Page.php';  $pageObj = new Page();  
     if(isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
-        $editor = $editorObj->edit($id);
+        $page = $pageObj->edit($id);
     } 
 
-    // Update Record in editor table
+    // Update Record in page table
     if(isset($_POST['update'])) {
-        $editorObj->update($_POST);
+        $pageObj->update($_POST);
     }  
 ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>Update Editor Information</title>
+        <title>Update Page Information</title>
         <meta charset="utf-8">
     </head>
     <body>
         <div class="card text-center" style="padding:15px;">
             <div class="row">
                 <div class="col-lg-3">
-                    <h4>Update Editor Information</h4>
+                    <h4>Update Page Information</h4>
                 </div>
                 <div class="col-lg-9">
                     <?php 
                         require '../header.php'; 
-                        if($user['role'] != 'Admin'){
+                        if($user['role'] != 'Editor'){
                             $_SESSION['message'] = 'The action is not permitted';
                             header('location:../home.php');
                             die();
@@ -58,20 +58,20 @@
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" value="<?php echo $editor['name']; ?>" required="" autofocus>
+                        <input type="text" class="form-control" name="name" value="<?php echo $page['name']; ?>" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" name="email" value="<?php echo $editor['email']; ?>" required="" autofocus>
+                        <input type="email" class="form-control" name="email" value="<?php echo $page['email']; ?>" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="role">Role:</label>
-                        <input type="text" class="form-control" value="<?php echo $editor['role']; ?>" readonly>
+                        <input type="text" class="form-control" value="<?php echo $page['role']; ?>" readonly>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="status">Status:</label>
                         <select id="" name="status" class="form-control" required>
-                            <option value="<?php echo $editor['status']; ?>" selected><?php echo $editor['status']; ?></option>
+                            <option value="<?php echo $page['status']; ?>" selected><?php echo $page['status']; ?></option>
                             <option value="Active">Active</option>
                             <option value="Inactive">Inactive</option>
                         </select>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <input type="hidden" name="id" value="<?php echo $editor['id']; ?>">
+                        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
                         <input type="submit" name="update" class="btn btn-primary" value="Update">
                         <a href="index.php">
                             <button type="button" class="btn btn-danger"> Back</button>
