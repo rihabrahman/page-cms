@@ -41,13 +41,13 @@
         </div>
         <br> 
         <?php
-            if(isset($_SESSION['message'])){
+            if(isset($_SESSION['failedMessage'])){
                 ?>
                     <div class="alert alert-danger text-center">
-                        <?php echo $_SESSION['message']; ?>
+                        <?php echo $_SESSION['failedMessage']; ?>
                     </div>
                 <?php     
-                unset($_SESSION['message']);
+                unset($_SESSION['failedMessage']);
             }
         ?>
         <div class="container">

@@ -62,24 +62,23 @@
                 All Editor Information
                 <a href="add.php" class="btn btn-primary" style="float:right;">Add New Editor</a>
             </h2>
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered" id="data-table">
                 <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
+                    <tr class="bg-dark text-light">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <?php 
                         $editors = $editorObj->index(); 
-                        if($editors != null){
-                        foreach ($editors as $editor) {
+                        foreach ($editors as $key=>$editor) {
                     ?>
                     <tr>
-                        <td><?php echo $editor['id'] ?></td>
+                        <td><?php echo $key+1 ?></td>
                         <td><?php echo $editor['name'] ?></td>
                         <td><?php echo $editor['email'] ?></td>
                         <td><?php echo $editor['status'] ?></td>
@@ -94,12 +93,12 @@
                     </tr>
                     <?php 
                         }
-                    }
                     ?>
                 </tbody>
             </table>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <?php 
+            require '../footer.php'; 
+        ?>
     </body>
 </html>

@@ -17,7 +17,6 @@
     <html lang="en">
     <head>
         <title>Page Information</title>
-        <meta charset="utf-8">
     </head>
     <body>
         <div class="card text-center" style="padding:15px;">
@@ -34,24 +33,23 @@
         </div>
         <div class="container">
             <?php                
-                if (isset($_GET['msg1']) == "insert") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        New page added successfully.
-                        </div>";
+                if(isset($_SESSION['successMessage'])){
+                    ?>
+                        <div class="alert alert-success text-center">
+                            <?php echo $_SESSION['successMessage']; ?>
+                        </div>
+                    <?php     
+                    unset($_SESSION['successMessage']);
                 } 
-                if (isset($_GET['msg2']) == "update") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        Page information updated successfully.
-                        </div>";
-                }
-                if (isset($_GET['msg3']) == "delete") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        Page deleted successfully.
-                        </div>";
-                }
+
+                if (isset($_SESSION['failedMessage'])){
+                    ?>
+                        <div class="alert alert-danger text-center">
+                            <?php echo $_SESSION['failedMessage']; ?>
+                        </div>
+                    <?php     
+                    unset($_SESSION['failedMessage']);
+                } 
             ?>
             <br>
             <?php
@@ -64,18 +62,18 @@
             <?php
                 endif
             ?>
-            <table class="table table-hover">
+            <table class="table table-hover table-bordered" id="data-table">
                 <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>meta_title</th>
-                    <th>meta_description</th>
-                    <th>content</th>
-                    <th>thumbnail_image</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                </tr>
+                    <tr class="bg-dark text-light">
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>meta_title</th>
+                        <th>meta_description</th>
+                        <th>content</th>
+                        <th>thumbnail_image</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     <?php 
@@ -100,6 +98,9 @@
                             <a href="edit.php?id=<?php echo $page['id'] ?>">
                                 <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit</button>
                             </a>
+                            <a href="/page-cms/page/include/<?php echo $page['name'] ?>.html" target="_blank">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View</button>
+                            </a>
                             <!-- <a href="index.php?id=<?php echo $page['id'] ?>" onclick="confirm('Are you sure want to delete this page?')">
                                 <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp; Delete</button>
                             </a> -->
@@ -112,7 +113,8 @@
                 </tbody>
             </table>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <?php 
+            require '../footer.php'; 
+        ?>
     </body>
 </html>
