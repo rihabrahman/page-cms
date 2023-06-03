@@ -65,12 +65,12 @@
             <table class="table table-hover table-bordered" id="data-table">
                 <thead>
                     <tr class="bg-dark text-light">
-                        <th>Id</th>
+                        <th>Sl. No.</th>
                         <th>Name</th>
-                        <th>meta_title</th>
-                        <th>meta_description</th>
-                        <th>content</th>
-                        <th>thumbnail_image</th>
+                        <th>Meta Title</th>
+                        <th>Meta Description</th>
+                        <th>Content</th>
+                        <th>Thumbnail Image</th>
                         <th>Status</th>
                         <th>Action</th>
                     </tr>
@@ -92,7 +92,7 @@
                         <td><?php echo $page['meta_title'] ?></td>
                         <td><?php echo $page['meta_description'] ?></td>
                         <td><?php echo $page['content'] ?></td>
-                        <td><?php echo $page['thumbnail_image'] ?></td>
+                        <td><img class="img-responsive" alt="" src="include/images/<?php echo $page['thumbnail_image'] ?>" /></td>
                         <td><?php echo $page['status'] ?></td>
                         <td>
                             <a href="edit.php?id=<?php echo $page['id'] ?>">

@@ -44,30 +44,38 @@
         </div>
         <br> 
         <?php
-            if(isset($_SESSION['message'])){
+            if(isset($_SESSION['failedMessage'])){
                 ?>
                     <div class="alert alert-danger text-center">
-                        <?php echo $_SESSION['message']; ?>
+                        <?php echo $_SESSION['failedMessage']; ?>
                     </div>
                 <?php     
-                unset($_SESSION['message']);
+                unset($_SESSION['failedMessage']);
             }
         ?>
         <div class="container">
-            <form action="edit.php" method="POST">
+            <form action="edit.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <label for="name">Name:</label>
+                        <label for="name">Page Name</label>
                         <input type="text" class="form-control" name="name" value="<?php echo $page['name']; ?>" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
-                        <label for="email">Email address:</label>
-                        <input type="email" class="form-control" name="email" value="<?php echo $page['email']; ?>" required="" autofocus>
+                        <label for="meta_title">Meta Title</label>
+                        <input type="text" class="form-control" name="meta_title" value="<?php echo $page['meta_title']; ?>" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
-                        <label for="role">Role:</label>
-                        <input type="text" class="form-control" value="<?php echo $page['role']; ?>" readonly>
+                        <label for="meta_description">Meta Description</label>
+                        <input type="text" class="form-control" name="meta_description"  value="<?php echo $page['meta_description']; ?>" required="" autofocus>
                     </div>
+                    <div class="form-group col-lg-4">
+                        <label for="content">Content</label>
+                        <input type="text" class="form-control" name="content" value="<?php echo $page['content']; ?>" required="" autofocus>
+                    </div>     
+                    <div class="form-group col-lg-4">
+                        <label for="thumbnail_image">Thumbnail Image</label>
+                        <input type="file" class="form-control" name="thumbnail_image" accept=".jpg,.jpeg,.png" autofocus>
+                    </div>     
                     <div class="form-group col-lg-4">
                         <label for="status">Status:</label>
                         <select id="" name="status" class="form-control" required>
@@ -79,7 +87,8 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <input type="hidden" name="id" value="<?php echo $user['id']; ?>">
+                        <input type="hidden" name="id" value="<?php echo $page['id']; ?>">
+                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">                        
                         <input type="submit" name="update" class="btn btn-primary" value="Update">
                         <a href="index.php">
                             <button type="button" class="btn btn-danger"> Back</button>

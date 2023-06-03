@@ -65,7 +65,7 @@
             <table class="table table-hover table-bordered" id="data-table">
                 <thead>
                     <tr class="bg-dark text-light">
-                        <th>Id</th>
+                        <th>Sl. No.</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Status</th>

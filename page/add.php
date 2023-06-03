@@ -51,27 +51,27 @@
             }
         ?>
         <div class="container">
-            <form action="add.php" method="POST">
+            <form action="add.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <label for="name">Name</label>
+                        <label for="name">Page Name</label>
                         <input type="text" class="form-control" name="name" placeholder="Enter name" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
-                        <label for="email">meta_title</label>
-                        <input type="text" class="form-control" name="meta_title" placeholder="Enter email" required="" autofocus>
+                        <label for="meta_title">Meta Title</label>
+                        <input type="text" class="form-control" name="meta_title" placeholder="Meta Title" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
-                        <label for="email">meta_description</label>
-                        <input type="text" class="form-control" name="meta_description" placeholder="Enter email" required="" autofocus>
+                        <label for="meta_description">Meta Description</label>
+                        <input type="text" class="form-control" name="meta_description" placeholder="Meta Description" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
-                        <label for="email">content</label>
-                        <input type="text" class="form-control" name="content" placeholder="Enter email" required="" autofocus>
+                        <label for="content">Content</label>
+                        <input type="text" class="form-control" name="content" placeholder="Content" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
-                        <label for="email">thumbnail_image</label>
-                        <input type="text" class="form-control" name="thumbnail_image" placeholder="Enter email" required="" autofocus>
+                        <label for="thumbnail_image">Thumbnail Image</label>
+                        <input type="file" class="form-control" name="thumbnail_image" required="" autofocus accept=".jpg,.jpeg,.png">
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="status">Status</label>
@@ -93,7 +93,8 @@
                 </div>               
             </form>
         </div>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <?php 
+            require '../footer.php'; 
+        ?>
     </body>
 </html>

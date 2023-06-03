@@ -41,9 +41,6 @@
                 }
                 return $data;
             }
-            else{
-                echo "No editor found";
-            }
         }		
         
         // Fetch single data for edit from user table
@@ -63,11 +60,11 @@
         // Update Editor data into user table
         public function update($postData)
         {
+            $id = $this->connection->real_escape_string($_POST['id']);
             $name = $this->connection->real_escape_string($_POST['name']);
             $email = $this->connection->real_escape_string($_POST['email']);
             $role = 'Editor';
             $status = $this->connection->real_escape_string($_POST['status']);
-            $id = $this->connection->real_escape_string($_POST['id']);
 
             $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email' and id!=$id";
             $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
