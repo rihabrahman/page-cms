@@ -65,7 +65,7 @@
                 die();
             }else {
                 $_SESSION['failedMessage'] = 'Failed to add new page. Please try again!';
-                header('location:index.php');
+                header('location:add.php');
                 die();
             }
         }		
