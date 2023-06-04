@@ -17,7 +17,7 @@
 ?> 
 
 <?php 
-    require '../header.php'; 
+    require '../partials/header.php'; 
 ?>
 
 <?php                
@@ -128,5 +128,5 @@
     </table>
 </div>
 <?php 
-    require '../footer.php'; 
+    require '../partials/footer.php'; 
 ?>

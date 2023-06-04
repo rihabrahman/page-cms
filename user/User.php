@@ -1,5 +1,5 @@
 <?php
-    require_once('../Auth.php');
+    require_once('../auth/Auth.php');
 
     class User extends Auth
     {

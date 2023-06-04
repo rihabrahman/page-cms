@@ -1,5 +1,5 @@
 <?php
-    require_once('../Auth.php');
+    require_once('../auth/Auth.php');
     require_once('dynamic_template.php');
 
     class Page extends Auth

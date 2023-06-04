@@ -22,7 +22,7 @@
 ?>
 
 <?php 
-    require '../header.php'; 
+    require '../partials/header.php'; 
     if($user['role'] != 'Editor'){
         $pageObj->unauthorized_user();
     }                        
@@ -83,5 +83,5 @@
     </form>
 </div>
 <?php 
-    require '../footer.php'; 
+    require '../partials/footer.php'; 
 ?>

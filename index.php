@@ -24,7 +24,7 @@
 						</h3>
 					</div>
 					<div class="panel-body">
-						<form method="POST" action="login.php">
+						<form method="POST" action="auth/login.php">
 							<fieldset>
 								<div class="form-group">
 									<input class="form-control" placeholder="Email" type="text" name="email" autofocus required>
