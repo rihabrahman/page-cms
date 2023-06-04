@@ -32,14 +32,14 @@
         //all inactive pages count
         $allInactivePage = $user->all_inactive_page();
     } else {
-        //all pages count
-        $editorAllPage = $user->editors_all_page($_SESSION['user']);
+        //editor wise all pages count
+        $editorAllPage = $user->editor_all_page($_SESSION['user']);
 
-        //all active pages count
-        $editorAllActivePage = $user->editors_active_page($_SESSION['user']);
+        //editor wise all active pages count
+        $editorAllActivePage = $user->editor_active_page($_SESSION['user']);
 
-        //all inactive pages count
-        $editorAllInactivePage = $user->editors_inactive_page($_SESSION['user']);
+        //editor wise all inactive pages count
+        $editorAllInactivePage = $user->editor_inactive_page($_SESSION['user']);
     }
 
 ?>

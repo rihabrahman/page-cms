@@ -12,6 +12,7 @@
             $role = 'Editor';
             $status = $this->connection->real_escape_string($_POST['status']);
 
+            // Duplicate email address check
             $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email'";
             $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
             if ($duplicateEmailCheckResult->num_rows > 0) {
@@ -70,9 +71,9 @@
             $role = 'Editor';
             $status = $this->connection->real_escape_string($_POST['status']);
 
+            // Duplicate email address check
             $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email' and id!=$id";
             $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
-
             if ($duplicateEmailCheckResult->num_rows > 0) {
                 $_SESSION['failedMessage'] = 'The email has already been taken.';
                 header('Location: ' . $_SERVER['HTTP_REFERER']);

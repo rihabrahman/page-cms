@@ -1,13 +1,13 @@
 <html>
     <head>
-        <title>Enim explicabo</title>
+        <title>Beatae dolore sunt </title>
         <meta charset='utf-8'>
         <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <meta name='description' content='Rerum et numquam exc'>
+        <meta name='description' content='Officia exercitation'>
     </head>
     <body>
-        <div><img alt='Enim explicabo' src='images/Lance-Lewis20230604123144.jpg' /></div>
-        <h1>Enim explicabo</h1>
-        <p><p><span style="font-size: 18pt; color: #e03e2d;">Illo </span>quod <strong>quaerat </strong>es</p></p>
+        <div><img alt='Beatae dolore sunt ' src='images/Madeson-Mclean_20230604092907.jpeg' /></div>
+        <h1>Beatae dolore sunt </h1>
+        <p><h2>dfdsfsfs <strong>gsdfgd </strong>sdfdsfsdf <em>fdsf</em></h2></p>
     </body>
 </html>

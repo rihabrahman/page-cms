@@ -38,7 +38,7 @@
         <div class="row">
             <div class="form-group col-lg-4">
                 <label for="name">Page Name</label>
-                <input type="text" class="form-control" name="name" placeholder="Must be 2 to 200 letters" pattern="[a-z0-9A-Z-_.]{2,200}" required="" autofocus>
+                <input type="text" class="form-control" name="name" placeholder="Must be 2 to 200 letters without any space" pattern="[a-z0-9A-Z-_.]{2,200}" required="" autofocus>
             </div>
             <div class="form-group col-lg-4">
                 <label for="meta_title">Meta Title</label>
@@ -62,7 +62,7 @@
             </div>
             <div class="form-group col-lg-12">
                 <label for="content">Page Content</label>
-                <textarea class="form-control" name="content" required autofocus></textarea>
+                <textarea class="form-control" name="content" autofocus></textarea>
             </div>  
         </div>
         <div class="row">

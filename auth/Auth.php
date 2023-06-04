@@ -96,7 +96,7 @@
         }
 
         //editor's all pages count
-        public function editors_all_page($id)
+        public function editor_all_page($id)
         {
             $editorsPageSql = "SELECT COUNT(DISTINCT id) as total FROM pages WHERE user_id=$id";
             $editorsPageCount = $this->query($editorsPageSql);
@@ -105,7 +105,7 @@
         }
 
         //editor's active pages count
-        public function editors_active_page($id)
+        public function editor_active_page($id)
         {
             $editorsActivePageSql = "SELECT COUNT(DISTINCT id) as total FROM pages WHERE status = 'Active' AND user_id=$id";
             $editorsActivePageCount = $this->query($editorsActivePageSql);
@@ -114,7 +114,7 @@
         }
         
         //editor's inactive pages count
-        public function editors_inactive_page($id)
+        public function editor_inactive_page($id)
         {
             $editorsInactivePageSql = "SELECT COUNT(DISTINCT id) as total FROM pages WHERE status = 'Inactive'  AND user_id=$id";
             $editorsInactivePageCount = $this->query($editorsInactivePageSql);

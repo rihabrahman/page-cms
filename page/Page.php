@@ -16,6 +16,7 @@
             $status = $this->connection->real_escape_string($_POST['status']);
             $created_at = $this->timeStamp();
 
+            // Duplicate page name check to ensure unique HTML page name
             $duplicateNameCheckQuery = "SELECT * FROM pages WHERE name='$name'";
             $duplicateNameCheckQuery = $this->connection->query($duplicateNameCheckQuery);
             if ($duplicateNameCheckQuery->num_rows > 0) {
@@ -40,10 +41,12 @@
             {
                 //rename the image file
                 $newImageName=$name."_".date("Ymdhis").".".$extension;
+
                 // Code for move image into directory
                 move_uploaded_file($_FILES["thumbnail_image"]["tmp_name"],"include/images/".$newImageName);
             }
 
+            // if status is active then HTML page will be generated
             if($status == 'Active')
             {
                 $dynamicTemplate = dynamic_template($meta_title, $meta_description, $content, $newImageName);
@@ -126,6 +129,7 @@
             $status = $this->connection->real_escape_string($_POST['status']);
             $updated_at = $this->timeStamp();
 
+            // Duplicate page name check to ensure unique HTML page name
             $duplicateNameCheckQuery = "SELECT * FROM pages WHERE name='$name' and id != $id";
             $duplicateNameCheckQuery = $this->connection->query($duplicateNameCheckQuery);
             
@@ -177,6 +181,7 @@
                 $newImageName=$page['thumbnail_image'];
             }
 
+            // if status is active then HTML page will be generated else generated HTML file will be deleted
             if($status == 'Active')
             {
                 $dynamicTemplate = dynamic_template($meta_title, $meta_description, $content, $newImageName);
@@ -192,20 +197,17 @@
                 unlink($htmlFile);
             }
 
-            if (!empty($id) && !empty($post)) {
-                $query="UPDATE pages SET name = '$name', meta_title = '$meta_title', meta_description = '$meta_description', content = '$content', status = '$status', updated_at='$updated_at' WHERE id = $id";
-                $page = $this->connection->query($query);
-                if ($page==true) {
-                    $_SESSION['successMessage'] = 'Page updated successfully.';
-                    header('location:index.php');
-                    die();
-                }else{
-                    $_SESSION['failedMessage'] = 'Failed to update page. Please try again!';
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
-                    die();
-                }
-            }
-            
+            $query="UPDATE pages SET name = '$name', meta_title = '$meta_title', meta_description = '$meta_description', content = '$content', status = '$status', updated_at='$updated_at' WHERE id = $id";
+            $page = $this->connection->query($query);
+            if ($page==true) {
+                $_SESSION['successMessage'] = 'Page updated successfully.';
+                header('location:index.php');
+                die();
+            }else{
+                $_SESSION['failedMessage'] = 'Failed to update page. Please try again!';
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                die();
+            }            
         }
         
         // Delete page data from table
@@ -214,9 +216,11 @@
             $pageSelectionQuery = "SELECT * FROM pages WHERE id = '$id'";
             $pageInfo = $this->connection->query($pageSelectionQuery)->fetch_assoc();
 
+            // Delete image from directory
             $imageFilePath = "include/images/";
             unlink($imageFilePath.$pageInfo['thumbnail_image']);
 
+            // Delete generated HTML file from directory
             $htmlFile = 'include/'. $pageInfo['name'] . '.html';
             unlink($htmlFile);
 
