@@ -8,6 +8,6 @@
     <body>
         <div><img alt='Enim explicabo' src='images/Lance-Lewis20230604123144.jpg' /></div>
         <h1>Enim explicabo</h1>
-        <p>Illo quod quaerat es</p>
+        <p><p><span style="font-size: 18pt; color: #e03e2d;">Illo </span>quod <strong>quaerat </strong>es</p></p>
     </body>
 </html>

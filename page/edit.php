@@ -55,21 +55,21 @@
                 <input type="text" class="form-control" name="meta_description"  value="<?php echo $page['meta_description']; ?>" placeholder="Must be 2 to 250 letters" pattern="[a-z0-9 A-Z!?$%@#=+._-]{2,250}" required="" autofocus>
             </div>
             <div class="form-group col-lg-4">
-                <label for="content">Content</label>
-                <input type="text" class="form-control" name="content" value="<?php echo $page['content']; ?>" required="" autofocus>
-            </div>     
-            <div class="form-group col-lg-4">
-                <label for="thumbnail_image">Thumbnail Image</label>
+                <label for="thumbnail_image">Thumbnail Image (jpg, jpeg, png only)</label>
                 <input type="file" class="form-control" name="thumbnail_image" accept=".jpg,.jpeg,.png" autofocus>
             </div>     
             <div class="form-group col-lg-4">
-                <label for="status">Status:</label>
+                <label for="status">Status</label>
                 <select id="" name="status" class="form-control" required>
                     <option value="<?php echo $page['status']; ?>" selected><?php echo $page['status']; ?></option>
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                 </select>
-            </div>                
+            </div>  
+            <div class="form-group col-lg-12">
+                <label for="content">Page Content</label>
+                <textarea class="form-control" name="content" required autofocus><?php echo $page['content']; ?></textarea>
+            </div>
         </div>
         <div class="row">
             <div class="form-group col-lg-4">

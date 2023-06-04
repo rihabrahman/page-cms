@@ -5,7 +5,7 @@
     $user = $userObj->query($sql);     
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Page CMS</title>
         <meta charset="utf-8">
@@ -15,6 +15,7 @@
         <link href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.dataTables.min.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/buttons/1.6.5/css/buttons.dataTables.min.css" rel="stylesheet" />
+        <script src="https://cdn.tiny.cloud/1/6d60co0ye77h7jzv1r3d7ku4n6gpkr59pv0y2dhe7aeh6r2i/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
     <body>
         <div class="text-center p-3">
