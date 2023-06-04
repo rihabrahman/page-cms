@@ -7,7 +7,9 @@
     } 
     
     // Include database file
-    require 'Page.php';  $pageObj = new Page();  // Delete record from table
+    require 'Page.php';  $pageObj = new Page();  
+    
+    // Delete page from table
     if(isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
         $pageObj->destroy($id);
@@ -31,36 +33,36 @@
                 </div>
             </div>
         </div>
-        <div class="container">
-            <?php                
-                if(isset($_SESSION['successMessage'])){
-                    ?>
-                        <div class="alert alert-success text-center">
-                            <?php echo $_SESSION['successMessage']; ?>
-                        </div>
-                    <?php     
-                    unset($_SESSION['successMessage']);
-                } 
+        <?php                
+            if(isset($_SESSION['successMessage'])){
+                ?>
+                    <div class="alert alert-success text-center">
+                        <?php echo $_SESSION['successMessage']; ?>
+                    </div>
+                <?php     
+                unset($_SESSION['successMessage']);
+            } 
 
-                if (isset($_SESSION['failedMessage'])){
-                    ?>
-                        <div class="alert alert-danger text-center">
-                            <?php echo $_SESSION['failedMessage']; ?>
-                        </div>
-                    <?php     
-                    unset($_SESSION['failedMessage']);
-                } 
-            ?>
-            <br>
+            if (isset($_SESSION['failedMessage'])){
+                ?>
+                    <div class="alert alert-danger text-center">
+                        <?php echo $_SESSION['failedMessage']; ?>
+                    </div>
+                <?php     
+                unset($_SESSION['failedMessage']);
+            } 
+        ?>
+        <br>
+        <div class="container">
             <?php
-                if($user['role'] == 'Editor'):
+                if($user['role'] == 'Editor'){
             ?>
                 <h2>
                     All Page Information
                     <a href="add.php" class="btn btn-primary" style="float:right;">Create New Page</a>
                 </h2>
             <?php
-                endif
+                }
             ?>
             <table class="table table-hover table-bordered" id="data-table">
                 <thead>
@@ -116,13 +118,15 @@
                                 <a href="edit.php?id=<?php echo $page['id'] ?>">
                                     <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit</button>
                                 </a>
-                            <?php } ?>                            
-                            <a href="/page-cms/page/include/<?php echo $page['name'] ?>.html" target="_blank">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View</button>
-                            </a>
-                            <!-- <a href="index.php?id=<?php echo $page['id'] ?>" onclick="confirm('Are you sure want to delete this page?')">
-                                <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp; Delete</button>
-                            </a> -->
+                                <a href="index.php?id=<?php echo $page['id'] ?>" onclick="confirm('Are you sure want to delete this page?')">
+                                    <button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> &nbsp; Delete</button>
+                                </a>
+                            <?php } ?>  
+                            <?php if($page['status'] == 'Active') { ?>
+                                <a href="include/<?php echo $page['pageName'] ?>.html" target="_blank">
+                                    <button type="button" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View</button>
+                                </a>
+                            <?php } ?>                             
                         </td>
                     </tr>
                     <?php 

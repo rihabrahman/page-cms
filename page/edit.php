@@ -5,9 +5,11 @@
     if (!isset($_SESSION['user']) ||(trim ($_SESSION['user']) == '')){
         header('location:index.php');
     }
+    
+    // Initialization of class object
+    require 'Page.php';  $pageObj = new Page();  
 
     // Edit page record
-    require 'Page.php';  $pageObj = new Page();  
     if(isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
         $page = $pageObj->edit($id);
@@ -34,15 +36,12 @@
                     <?php 
                         require '../header.php'; 
                         if($user['role'] != 'Editor'){
-                            $_SESSION['message'] = 'The action is not permitted';
-                            header('location:../home.php');
-                            die();
+                            $pageObj->unauthorized_user();
                         }                        
                     ?>
                 </div>
             </div>
         </div>
-        <br> 
         <?php
             if(isset($_SESSION['failedMessage'])){
                 ?>
@@ -53,20 +52,21 @@
                 unset($_SESSION['failedMessage']);
             }
         ?>
+        <br>
         <div class="container">
             <form action="edit.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="name">Page Name</label>
-                        <input type="text" class="form-control" name="name" value="<?php echo $page['name']; ?>" required="" autofocus>
+                        <input type="text" class="form-control" name="name" value="<?php echo $page['name']; ?>" placeholder="Must be 2 to 200 letters" pattern="[a-z0-9A-Z-_.]{2,200}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="meta_title">Meta Title</label>
-                        <input type="text" class="form-control" name="meta_title" value="<?php echo $page['meta_title']; ?>" required="" autofocus>
+                        <input type="text" class="form-control" name="meta_title" value="<?php echo $page['meta_title']; ?>" placeholder="Must be 2 to 250 letters" pattern="[a-z0-9 A-Z!?$%@#=+._-]{2,250}" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="meta_description">Meta Description</label>
-                        <input type="text" class="form-control" name="meta_description"  value="<?php echo $page['meta_description']; ?>" required="" autofocus>
+                        <input type="text" class="form-control" name="meta_description"  value="<?php echo $page['meta_description']; ?>" placeholder="Must be 2 to 250 letters" pattern="[a-z0-9 A-Z!?$%@#=+._-]{2,250}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="content">Content</label>

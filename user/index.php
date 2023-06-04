@@ -6,8 +6,10 @@
         header('location:../index.php');
     } 
     
-    // Include database file
-    require 'User.php';  $editorObj = new User();  // Delete record from table
+    // Initialization of class object
+    require 'User.php';  $editorObj = new User();  
+    
+    // Delete editor from user table
     if(isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
         $editorObj->destroy($id);
@@ -29,35 +31,33 @@
                     <?php 
                         require '../header.php'; 
                         if($user['role'] != 'Admin'){
-                            $_SESSION['message'] = 'The action is not permitted';
-                            header('location:../home.php');
+                            $editorObj->unauthorized_user();
                         }
                     ?>
                 </div>
             </div>
         </div>
+        <?php                
+            if(isset($_SESSION['successMessage'])){
+                ?>
+                    <div class="alert alert-success text-center">
+                        <?php echo $_SESSION['successMessage']; ?>
+                    </div>
+                <?php     
+                unset($_SESSION['successMessage']);
+            } 
+
+            if (isset($_SESSION['failedMessage'])){
+                ?>
+                    <div class="alert alert-danger text-center">
+                        <?php echo $_SESSION['failedMessage']; ?>
+                    </div>
+                <?php     
+                unset($_SESSION['failedMessage']);
+            }
+        ?>
+        <br>
         <div class="container">
-            <?php                
-                if (isset($_GET['msg1']) == "insert") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        New editor added successfully.
-                        </div>";
-                } 
-                if (isset($_GET['msg2']) == "update") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        Editor information updated successfully.
-                        </div>";
-                }
-                if (isset($_GET['msg3']) == "delete") {
-                echo "<div class='alert alert-success alert-dismissible'>
-                        <button type='button' class='close' data-dismiss='alert'>&times;</button>
-                        Editor deleted successfully.
-                        </div>";
-                }
-            ?>
-            <br>
             <h2>
                 All Editor Information
                 <a href="add.php" class="btn btn-primary" style="float:right;">Add New Editor</a>

@@ -6,8 +6,10 @@
         header('location:index.php');
     }
 
-    // Include database file
-    require 'User.php';  $editorObj = new User();  // Insert Record in editor table
+    // Initialization of class object
+    require 'User.php';  $editorObj = new User();  
+    
+    // Insert record in editor table
     if(isset($_POST['submit'])) {
         $editorObj->store($_POST);
     }
@@ -31,39 +33,37 @@
                     <?php 
                         require '../header.php'; 
                         if($user['role'] != 'Admin'){
-                            $_SESSION['message'] = 'The action is not permitted';
-                            header('location:../home.php');
-                            die();
+                            $editorObj->unauthorized_user();
                         }
                     ?>
                 </div>
             </div>
         </div>
-        <br> 
         <?php
-            if(isset($_SESSION['message'])){
+            if(isset($_SESSION['failedMessage'])){
                 ?>
                     <div class="alert alert-danger text-center">
-                        <?php echo $_SESSION['message']; ?>
+                        <?php echo $_SESSION['failedMessage']; ?>
                     </div>
                 <?php     
-                unset($_SESSION['message']);
+                unset($_SESSION['failedMessage']);
             }
-        ?>
-        <div class="container">
+        ?>         
+        <br>
+        <div class="container">  
             <form action="add.php" method="POST">
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter name" required="" autofocus>
+                        <input type="text" class="form-control" name="name" placeholder="Must be 2 to 100 letters" pattern="[a-z0-9 &A-Z.-]{2,100}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="email">Email address</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter email" required="" autofocus>
+                        <input type="email" class="form-control" name="email" placeholder="Must be 2 to 100 letters" pattern="[a-z0-9@A-Z._-]{2,100}" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="password">Password</label>
-                        <input type="password" class="form-control" name="password" placeholder="Enter password" required="" autofocus>
+                        <input type="password" class="form-control" name="password" placeholder="Must be 6 to 100 letters" pattern="[a-z0-9A-Z!?$%@#=+._-]{6,100}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="role">Role</label>

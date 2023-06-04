@@ -6,10 +6,12 @@
         header('location:index.php');
     }
 
-    // Include database file
-    require 'Page.php';  $editorObj = new Page();  // Insert Record in editor table
+   // Initialization of class object
+    require 'Page.php';  $pageObj = new Page();  
+    
+    // Insert Record in editor table
     if(isset($_POST['submit'])) {
-        $editorObj->store($_POST);
+        $pageObj->store($_POST);
     }
 ?>
 <!DOCTYPE html>
@@ -30,16 +32,13 @@
                 <div class="col-lg-9">
                     <?php 
                         require '../header.php'; 
-                        if($user['role'] != 'Editor'){
-                            $_SESSION['message'] = 'The action is not permitted';
-                            header('location:../home.php');
-                            die();
+                        if($user['role'] != 'Editor') {
+                            $pageObj->unauthorized_user();
                         }
                     ?>
                 </div>
             </div>
         </div>
-        <br> 
         <?php
             if(isset($_SESSION['failedMessage'])){
                 ?>
@@ -50,20 +49,21 @@
                 unset($_SESSION['failedMessage']);
             }
         ?>
+        <br>
         <div class="container">
             <form action="add.php" method="POST" enctype="multipart/form-data">
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="name">Page Name</label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter name" required="" autofocus>
+                        <input type="text" class="form-control" name="name" placeholder="Must be 2 to 200 letters" pattern="[a-z0-9A-Z-_.]{2,200}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="meta_title">Meta Title</label>
-                        <input type="text" class="form-control" name="meta_title" placeholder="Meta Title" required="" autofocus>
+                        <input type="text" class="form-control" name="meta_title" placeholder="Must be 2 to 250 letters" pattern="[a-z0-9 A-Z!?$%@#=+._-]{2,250}" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="meta_description">Meta Description</label>
-                        <input type="text" class="form-control" name="meta_description" placeholder="Meta Description" required="" autofocus>
+                        <input type="text" class="form-control" name="meta_description" placeholder="Must be 2 to 250 letters" pattern="[a-z0-9 A-Z!?$%@#=+._-]{2,250}" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="content">Content</label>

@@ -3,7 +3,7 @@
 
     class User extends Auth
     {
-        // Insert data into user table
+        // Insert editor data into user table
         public function store($post)
         {           
             $name = $this->connection->real_escape_string($_POST['name']);
@@ -15,41 +15,45 @@
             $duplicateEmailCheckQuery = "SELECT * FROM users WHERE email='$email'";
             $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
             if ($duplicateEmailCheckResult->num_rows > 0) {
-                $_SESSION['message'] = 'The email has already been taken.';
+                $_SESSION['failedMessage'] = 'The email has already been taken.';
                 header('location:add.php');
                 die();
             }            
 
             $query="INSERT INTO users(name, email, password, role, status) VALUES('$name', '$email', '$password', '$role', '$status')";
-            $sql = $this->connection->query($query);
-            if ($sql==true) {
-                header("Location:index.php?msg1=insert");
+            $editor = $this->connection->query($query);
+            if ($editor==true) {
+                $_SESSION['successMessage'] = 'New editor added successfully.';
+                header('location:index.php');
+                die();
             }else{
-                echo "Failed to add new editor. Please try again!";
+                $_SESSION['failedMessage'] = 'Failed to add new editor. Please try again!';
+                header('location:add.php');
+                die();
             }
         }		
         
         // List of editors
         public function index()
         {
-            $query = "SELECT * FROM users WHERE role='Editor'";
-            $result = $this->connection->query($query);
-            if ($result->num_rows > 0) {
+            $query = "SELECT * FROM users WHERE role='Editor' ORDER BY id DESC";
+            $editors = $this->connection->query($query);
+            if ($editors->num_rows > 0) {
                 $data = array();
-                while ($row = $result->fetch_assoc()) {
+                while ($row = $editors->fetch_assoc()) {
                     $data[] = $row;
                 }
                 return $data;
             }
         }		
         
-        // Fetch single data for edit from user table
+        // Fetch single editor data for edit from user table
         public function edit($id)
         {
             $query = "SELECT * FROM users WHERE id = '$id'";
-            $result = $this->connection->query($query);
-            if ($result->num_rows > 0) {
-                $row = $result->fetch_assoc();
+            $editor = $this->connection->query($query);
+            if ($editor->num_rows > 0) {
+                $row = $editor->fetch_assoc();
                 return $row;                
             }
             else{
@@ -57,8 +61,8 @@
             }
         }		
         
-        // Update Editor data into user table
-        public function update($postData)
+        // Update editor data into user table
+        public function update($post)
         {
             $id = $this->connection->real_escape_string($_POST['id']);
             $name = $this->connection->real_escape_string($_POST['name']);
@@ -70,33 +74,39 @@
             $duplicateEmailCheckResult = $this->connection->query($duplicateEmailCheckQuery);
 
             if ($duplicateEmailCheckResult->num_rows > 0) {
-                $_SESSION['message'] = 'The email has already been taken.';
+                $_SESSION['failedMessage'] = 'The email has already been taken.';
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
                 die();
             } 
 
-            if (!empty($id) && !empty($postData)) {
-                $query = "UPDATE users SET name = '$name', email = '$email', role = '$role', status = '$status' WHERE id = '$id'";
-                $sql = $this->connection->query($query);
-                if ($sql==true) {
-                    header("Location:index.php?msg2=update");
-                }else{
-                    echo "Editor update failed. Please try again!";
-                }
-            }
-            
+            $query = "UPDATE users SET name = '$name', email = '$email', role = '$role', status = '$status' WHERE id = '$id'";
+            $editor = $this->connection->query($query);
+
+            if ($editor==true) {
+                $_SESSION['successMessage'] = 'Editor updated successfully.';
+                header('location:index.php');
+                die();
+            }else{
+                $_SESSION['failedMessage'] = 'Failed to update editor. Please try again!';
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                die();
+            }            
         }
         
-        // Delete Editor data from user table
+        // Delete editor data from user table
         public function destroy($id)
         {
             $query = "DELETE FROM users WHERE id = '$id'";
-            $sql = $this->connection->query($query);
-            if ($sql==true) {
-                header("Location:index.php?msg3=delete");
+            $editor = $this->connection->query($query);
+            if ($editor==true) {
+                $_SESSION['successMessage'] = 'Editor deleted successfully.';
+                header('location:index.php');
+                die();
             }else{
-                echo "Editor does not deleted. Please try again!";
-            }
+                $_SESSION['failedMessage'] = 'Failed to delete editor. Please try again!';
+                header('location:index.php');
+                die();
+            } 
         }
     }
 ?>

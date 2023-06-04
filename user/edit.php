@@ -6,14 +6,16 @@
         header('location:index.php');
     }
 
-    // Edit editor record
+    // Initialization of class object
     require 'User.php';  $editorObj = new User();  
+
+    // Edit editor record
     if(isset($_GET['id']) && !empty($_GET['id'])) {
         $id = $_GET['id'];
         $editor = $editorObj->edit($id);
     } 
 
-    // Update Record in editor table
+    // Update record in editor table
     if(isset($_POST['update'])) {
         $editorObj->update($_POST);
     }  
@@ -34,35 +36,33 @@
                     <?php 
                         require '../header.php'; 
                         if($user['role'] != 'Admin'){
-                            $_SESSION['message'] = 'The action is not permitted';
-                            header('location:../home.php');
-                            die();
+                            $editorObj->unauthorized_user();
                         }                        
                     ?>
                 </div>
             </div>
         </div>
-        <br> 
         <?php
-            if(isset($_SESSION['message'])){
+            if(isset($_SESSION['failedMessage'])){
                 ?>
                     <div class="alert alert-danger text-center">
-                        <?php echo $_SESSION['message']; ?>
+                        <?php echo $_SESSION['failedMessage']; ?>
                     </div>
                 <?php     
-                unset($_SESSION['message']);
+                unset($_SESSION['failedMessage']);
             }
         ?>
+        <br>
         <div class="container">
             <form action="edit.php" method="POST">
                 <div class="row">
                     <div class="form-group col-lg-4">
                         <label for="name">Name:</label>
-                        <input type="text" class="form-control" name="name" value="<?php echo $editor['name']; ?>" required="" autofocus>
+                        <input type="text" class="form-control" name="name" value="<?php echo $editor['name']; ?>" placeholder="Must be 2 to 100 letters" pattern="[a-z0-9 &A-Z.-]{2,100}" required="" autofocus>
                     </div>
                     <div class="form-group col-lg-4">
                         <label for="email">Email address:</label>
-                        <input type="email" class="form-control" name="email" value="<?php echo $editor['email']; ?>" required="" autofocus>
+                        <input type="email" class="form-control" name="email" value="<?php echo $editor['email']; ?>" placeholder="Must be 2 to 100 letters" pattern="[a-z0-9@A-Z._-]{2,100}" required="" autofocus>
                     </div>                
                     <div class="form-group col-lg-4">
                         <label for="role">Role:</label>
