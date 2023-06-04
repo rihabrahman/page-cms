@@ -62,7 +62,8 @@
         <tbody>
             <?php 
                 $editors = $editorObj->index(); 
-                foreach ($editors as $key=>$editor) {
+                if($editors != null) {
+                    foreach ($editors as $key=>$editor) {
             ?>
             <tr>
                 <td><?php echo $key+1 ?></td>
@@ -79,6 +80,7 @@
                 </td>
             </tr>
             <?php 
+                    }
                 }
             ?>
         </tbody>

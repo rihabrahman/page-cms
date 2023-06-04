@@ -44,7 +44,7 @@
         //all editors count
         public function all_editor()
         {
-            $allEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users";
+            $allEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users WHERE role = 'Editor'";
             $allEditorCount = $this->query($allEditorSql);
 
             return $allEditorCount;
@@ -53,7 +53,7 @@
         //all active editors count
         public function all_active_editor()
         {
-            $allActiveEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users WHERE status = 'Active'";
+            $allActiveEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users WHERE status = 'Active' AND role = 'Editor'";
             $allActiveEditorCount = $this->query($allActiveEditorSql);
 
             return $allActiveEditorCount;
@@ -62,7 +62,7 @@
         //all inactive editors count
         public function all_inactive_editor()
         {
-            $allInactiveEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users WHERE status = 'Inactive'";
+            $allInactiveEditorSql = "SELECT COUNT(DISTINCT id) as total FROM users WHERE status = 'Inactive' AND role = 'Editor'";
             $allInactiveEditorCount = $this->query($allInactiveEditorSql);
 
             return $allInactiveEditorCount;

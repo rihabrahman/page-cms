@@ -59,25 +59,25 @@
     <?php if($row['role'] == 'Admin') { ?>
         <div class="row">
             <div class="card col-lg-3 bg-warning p-3">
-                <h5 class="mt-2">Total Editors: <?php echo $allEditor['total'] ?></h5>
+                <h5 class="mt-2">Total Editor(s): <?php echo $allEditor['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Active Editors: <?php echo $allActiveEditor['total'] ?></h5>
+                <h5 class="mt-2">Total Active Editor(s): <?php echo $allActiveEditor['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Inactive Editors: <?php echo $allInactiveEditor['total'] ?></h5>
+                <h5 class="mt-2">Total Inactive Editor(s): <?php echo $allInactiveEditor['total'] ?></h5>
             </div>        
         </div>
         <br>
         <div class="row">
             <div class="card col-lg-3 bg-warning p-3">
-                <h5 class="mt-2">Total Pages: <?php echo $allPage['total'] ?></h5>
+                <h5 class="mt-2">Total Page(s): <?php echo $allPage['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Active Pages: <?php echo $allActivePage['total'] ?></h5>
+                <h5 class="mt-2">Total Active Page(s): <?php echo $allActivePage['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Inactive Pages: <?php echo $allInactivePage['total'] ?></h5>
+                <h5 class="mt-2">Total Inactive Page(s): <?php echo $allInactivePage['total'] ?></h5>
             </div>        
         </div>
     <?php 
@@ -85,13 +85,13 @@
     ?>
         <div class="row">
             <div class="card col-lg-3 bg-warning p-3">
-                <h5 class="mt-2">Total Pages: <?php echo $editorAllPage['total'] ?></h5>
+                <h5 class="mt-2">Total Page(s): <?php echo $editorAllPage['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Active Pages: <?php echo $editorAllActivePage['total'] ?></h5>
+                <h5 class="mt-2">Total Active Page(s): <?php echo $editorAllActivePage['total'] ?></h5>
             </div>        
             <div class="card col-lg-3 offset-lg-1 bg-warning p-3">
-                <h5 class="mt-2">Total Inactive Pages: <?php echo $editorAllInactivePage['total'] ?></h5>
+                <h5 class="mt-2">Total Inactive Page(s): <?php echo $editorAllInactivePage['total'] ?></h5>
             </div>        
         </div>
     <?php 
