@@ -14,6 +14,7 @@
             $content = $_POST['content'];
             $thumbnail_image=$_FILES["thumbnail_image"]["name"];
             $status = $this->connection->real_escape_string($_POST['status']);
+            $created_at = $this->timeStamp(date("Y-m-d h:i:sa"));
 
             $duplicateNameCheckQuery = "SELECT * FROM pages WHERE name='$name'";
             $duplicateNameCheckQuery = $this->connection->query($duplicateNameCheckQuery);
@@ -47,7 +48,7 @@
             $newContent = file_get_contents("template.php");
             if (!file_exists($name . '.html')) { $handle = fopen('include/' . $name .'.html','w+'); fwrite($handle,$newContent); fclose($handle); }
 
-            $query="INSERT INTO pages(user_id, name, meta_title, meta_description, content, thumbnail_image, status) VALUES('$user_id', '$name', '$meta_title', '$meta_description', '$content', '$imgnewfile', '$status')";
+            $query="INSERT INTO pages(user_id, name, meta_title, meta_description, content, thumbnail_image, status, created_at) VALUES('$user_id', '$name', '$meta_title', '$meta_description', '$content', '$imgnewfile', '$status', '$created_at')";
             $sql = $this->connection->query($query);
                 
             if ($sql==true) {
@@ -64,7 +65,7 @@
         // List of all pages
         public function index()
         {
-            $query = "SELECT * FROM pages";
+            $query = "SELECT pages.id, pages.name AS pageName, pages.meta_title, pages.meta_description, pages.thumbnail_image, pages.status, pages.created_at, pages.updated_at, users.name AS editorName FROM `pages` LEFT JOIN `users` on pages.user_id=users.id ORDER BY pages.id DESC";
             $result = $this->connection->query($query);
             if ($result->num_rows > 0) {
                 $data = array();
@@ -80,7 +81,7 @@
         // List of pages as per editor
         public function editorIndex($user_id)
         {
-            $query = "SELECT * FROM pages WHERE user_id=$user_id";
+            $query = "SELECT pages.id, pages.name AS pageName, pages.meta_title, pages.meta_description, pages.thumbnail_image, pages.status, pages.created_at, pages.updated_at FROM pages WHERE user_id=$user_id ORDER BY id DESC";
             $result = $this->connection->query($query);
             if ($result->num_rows > 0) {
                 $data = array();
@@ -109,14 +110,13 @@
         public function update($post)
         {
             $id = $this->connection->real_escape_string($_POST['id']);
-            $user_id = $this->connection->real_escape_string($_POST['user_id']);
             $name = $this->connection->real_escape_string($_POST['name']);
             $meta_title = $this->connection->real_escape_string($_POST['meta_title']);
             $meta_description = $this->connection->real_escape_string($_POST['meta_description']);
             $content = $_POST['content'];
             $thumbnail_image=$_FILES["thumbnail_image"]["name"];
             $status = $this->connection->real_escape_string($_POST['status']);
-
+            $updated_at = $this->timeStamp(date("Y-m-d h:i:sa"));
             $duplicateNameCheckQuery = "SELECT * FROM pages WHERE name='$name' and id!=$id";
             $duplicateNameCheckQuery = $this->connection->query($duplicateNameCheckQuery);
             
@@ -174,7 +174,7 @@
             if (!file_exists($name . '.html')) { $handle = fopen('include/' . $name .'.html','w+'); fwrite($handle,$newContent); fclose($handle); }
 
             if (!empty($id) && !empty($post)) {
-                $query="UPDATE pages SET user_id = '$user_id', name = '$name', meta_title = '$meta_title', meta_description = '$meta_description', content = '$content', status = '$status' WHERE id = $id";
+                $query="UPDATE pages SET name = '$name', meta_title = '$meta_title', meta_description = '$meta_description', content = '$content', status = '$status', updated_at='$updated_at' WHERE id = $id";
                 $sql = $this->connection->query($query);
                 if ($sql==true) {
                     $_SESSION['successMessage'] = 'Page updated successfully.';
@@ -199,6 +199,14 @@
             }else{
                 echo "Editor does not deleted. Please try again!";
             }
+        }
+
+        // Date and time as per current time of Dhaka
+        private function timeStamp($value)
+        {
+            date_default_timezone_set("Asia/Dhaka");
+
+            return $timeStamp = date("Y-m-d H:i:s");
         }
     }
 ?>

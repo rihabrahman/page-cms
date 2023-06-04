@@ -66,12 +66,16 @@
                 <thead>
                     <tr class="bg-dark text-light">
                         <th>Sl. No.</th>
-                        <th>Name</th>
+                        <?php if($user['role'] == 'Admin') { ?>
+                            <th>Editor Name</th>
+                        <?php } ?>                       
+                        <th>Page Name</th>
                         <th>Meta Title</th>
                         <th>Meta Description</th>
-                        <th>Content</th>
                         <th>Thumbnail Image</th>
                         <th>Status</th>
+                        <th>Created On</th>
+                        <th>Updated On</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -83,21 +87,36 @@
                             $pages = $pageObj->editorIndex($user['id']); 
                         }
                         
-                        if($pages != null){
-                        foreach ($pages as $key=>$page) {
+                        if($pages != null) {
+                            foreach ($pages as $key=>$page) {
                     ?>
                     <tr>
                         <td><?php echo $key+1 ?></td>
-                        <td><?php echo $page['name'] ?></td>
+                        <?php if(isset($page['editorName'])) { ?>
+                            <td><?php echo $page['editorName'] ?></td>
+                        <?php } ?>
+                        <td><?php echo $page['pageName'] ?></td>
                         <td><?php echo $page['meta_title'] ?></td>
                         <td><?php echo $page['meta_description'] ?></td>
-                        <td><?php echo $page['content'] ?></td>
-                        <td><img class="img-responsive" alt="" src="include/images/<?php echo $page['thumbnail_image'] ?>" /></td>
+                        <td><img class="img-responsive" alt="" src="include/images/<?php echo $page['thumbnail_image'] ?>" width="150"/></td>
                         <td><?php echo $page['status'] ?></td>
+                        <td><?php echo date("d-m-Y, g:i A", strtotime($page['created_at'])) ?></td>
                         <td>
-                            <a href="edit.php?id=<?php echo $page['id'] ?>">
-                                <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit</button>
-                            </a>
+                            <?php 
+                                if($page['updated_at'] != null)
+                                {
+                                    echo date("d-m-Y, g:i A", strtotime($page['updated_at']));
+                                } else {
+                                    echo 'Not updated yet.';
+                                }
+                            ?>
+                        </td>
+                        <td>
+                            <?php if($user['role'] == 'Editor') { ?>
+                                <a href="edit.php?id=<?php echo $page['id'] ?>">
+                                    <button type="button" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> &nbsp; Edit</button>
+                                </a>
+                            <?php } ?>                            
                             <a href="/page-cms/page/include/<?php echo $page['name'] ?>.html" target="_blank">
                                 <button type="button" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i> &nbsp; View</button>
                             </a>

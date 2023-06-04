@@ -87,8 +87,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-lg-4">
-                        <input type="hidden" name="id" value="<?php echo $page['id']; ?>">
-                        <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">                        
+                        <input type="hidden" name="id" value="<?php echo $page['id']; ?>">                        
                         <input type="submit" name="update" class="btn btn-primary" value="Update">
                         <a href="index.php">
                             <button type="button" class="btn btn-danger"> Back</button>
